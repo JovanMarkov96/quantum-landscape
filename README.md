@@ -198,7 +198,7 @@ For deeper detail see the docs:
 ## 🧰 Tech stack
 
 - **Frontend:** [Docusaurus 3](https://docusaurus.io/) + React
-- **Map:** [MapLibre GL JS](https://maplibre.org/) with CARTO basemap tiles
+- **Map:** [MapLibre GL JS](https://maplibre.org/) with [OpenFreeMap](https://openfreemap.org/) basemap tiles (no API key)
 - **Graph:** force-directed lineage network
 - **Data pipeline:** Python ([python-frontmatter](https://python-frontmatter.readthedocs.io/), `requests`)
 - **Metrics & geo:** [OpenAlex](https://openalex.org/) API

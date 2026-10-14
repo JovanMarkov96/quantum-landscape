@@ -15,40 +15,14 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /**
- * Generates the MapLibre style object containing map layers and sources.
- * We use an inline style configuration with public raster tiles so the map
- * can render without an API key or cross-origin failures.
- * 
+ * Returns the basemap style URL. OpenFreeMap needs no API key; CARTO's
+ * basemaps.cartocdn.com started serving "API KEY REQUIRED" watermark tiles (Oct 2026).
+ *
  * @param {boolean} isDark - Whether the UI is in dark mode
- * @returns {Object} A standalone MapLibre GL style object
+ * @returns {string} A MapLibre GL style URL
  */
-const createStyle = (isDark) => ({
-    version: 8,
-    name: isDark ? 'Quantum Landscape Dark' : 'Quantum Landscape Light',
-    sources: {
-        basemap: {
-            type: 'raster',
-            tiles: [
-                isDark
-                    ? 'https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png'
-                    : 'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
-            ],
-            tileSize: 256,
-            attribution: '© OpenStreetMap contributors © CARTO'
-        }
-    },
-    layers: [
-        {
-            id: 'basemap',
-            type: 'raster',
-            source: 'basemap',
-            paint: {
-                'raster-opacity': 1,
-                'raster-fade-duration': 0
-            }
-        }
-    ]
-});
+const createStyle = (isDark) =>
+    `https://tiles.openfreemap.org/styles/${isDark ? 'dark' : 'positron'}`;
 
 /**
  * Groups raw GeoJSON feature entries by their exact lat/long coordinate.
